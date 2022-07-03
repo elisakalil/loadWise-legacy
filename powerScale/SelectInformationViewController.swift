@@ -13,7 +13,7 @@ class SelectInformationViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "Vamos começar adicionando as cargas "
+        text.text = "Vamos começar adicionando as cargas!"
         text.font = UIFont.boldSystemFont(ofSize: 40.0)
         text.numberOfLines = 0
         text.textAlignment = .left
@@ -54,7 +54,6 @@ class SelectInformationViewController: UIViewController {
     
     @objc private func dismiss(button: UIButton) {
         button.isSelected = true
-//        button.setTitleColor(.black, for: .selected)
         self.dismiss(animated: true)
     }
     
@@ -79,7 +78,7 @@ class SelectInformationViewController: UIViewController {
             informationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             informationLabel.widthAnchor.constraint(equalToConstant: 300),
             
-            sendButton.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 20),
+            sendButton.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 76),
             sendButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             sendButton.widthAnchor.constraint(equalToConstant: 350),
             sendButton.heightAnchor.constraint(equalToConstant: 54)

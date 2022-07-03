@@ -48,9 +48,10 @@ class TableViewController: UIViewController {
     
     func presentModal() {
         let presentModal = SelectInformationViewController()
-        presentModal.modalPresentationStyle = .formSheet
-        presentModal.preferredContentSize = CGSize(width: 100, height: 100)
-        self.present(presentModal, animated: true, completion: nil)
+        if let alertController = presentModal.presentationController as? UISheetPresentationController {
+            alertController.detents = [.medium()]
+        }
+        self.present(presentModal, animated: true)
     }
     
     @objc private func pushFoward(button: UIButton) {
