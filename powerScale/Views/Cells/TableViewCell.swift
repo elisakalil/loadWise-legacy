@@ -32,15 +32,27 @@ class TableViewCell: UITableViewCell {
     private lazy var step: UIStepper = {
         let step = UIStepper(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         step.center = contentView.center
-        step.minimumValue = 1
-        step.maximumValue = 100
-        step.stepValue = 2
-        step.addTarget(self, action: #selector(stepValue(sender:)), for: .valueChanged)
+        step.minimumValue = 0
+        step.maximumValue = 10
+        step.stepValue = 1
+        step.autorepeat = false
+        step.tintColor = .green
+        step.addTarget(self, action: #selector(stepValue), for: .valueChanged)
         return step
+    }()
+    
+    private lazy var quantityView: UILabel = {
+        let label = UILabel()
+        label.textColor = .softBrownIFSC
+        label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     @objc func stepValue(sender: UIStepper) {
         print(sender.value)
+        quantityView.text = String(Int(sender.value))
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -58,7 +70,8 @@ class TableViewCell: UITableViewCell {
 
         contentView.addSubview(backView)
         backView.addSubview(homeApplianceName)
-//        backView.addSubview(step)
+        backView.addSubview(step)
+        backView.addSubview(quantityView)
         
         NSLayoutConstraint.activate([
             
@@ -68,14 +81,19 @@ class TableViewCell: UITableViewCell {
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             homeApplianceName.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 22),
-            homeApplianceName.widthAnchor.constraint(equalToConstant: 210),
-            homeApplianceName.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -30),
+//            homeApplianceName.widthAnchor.constraint(equalToConstant: 210),
+//            homeApplianceName.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -30),
             homeApplianceName.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
             
-//            step.leadingAnchor.constraint(equalTo: homeApplianceName.trailingAnchor, constant: 10),
-//            step.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -12),
-//            step.widthAnchor.constraint(equalToConstant: 30),
-//            step.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            step.leadingAnchor.constraint(equalTo: homeApplianceName.trailingAnchor),
+//            step.trailingAnchor.constraint(equalTo: quantityView.leadingAnchor),
+//            step.widthAnchor.constraint(equalToConstant: 60),
+//            step.heightAnchor.constraint(equalToConstant: 20),
+            step.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            
+            quantityView.leadingAnchor.constraint(equalTo: step.trailingAnchor),
+            quantityView.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
+            quantityView.centerYAnchor.constraint(equalTo: backView.centerYAnchor)
         ])
     }
 }

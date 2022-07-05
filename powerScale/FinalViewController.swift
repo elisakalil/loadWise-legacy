@@ -46,7 +46,7 @@ class FinalViewController: UIViewController {
     private lazy var okButton: UIButton = {
         let button = UIButton()
         button.isSelected = false
-        button.setTitle("Ok", for: .normal)
+        button.setTitle("Voltar", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .greenIFSC
         button.layer.cornerRadius = 12
