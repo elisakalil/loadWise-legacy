@@ -29,6 +29,13 @@ class TableViewCell: UITableViewCell {
         return label
     }()
     
+    lazy var stepView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var step: UIStepper = {
         let step = UIStepper(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         step.center = contentView.center
@@ -44,7 +51,8 @@ class TableViewCell: UITableViewCell {
     private lazy var quantityView: UILabel = {
         let label = UILabel()
         label.textColor = .softBrownIFSC
-        label.font = .boldSystemFont(ofSize: 20)
+        label.text = "0"
+        label.font = .boldSystemFont(ofSize: 16)
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -70,8 +78,9 @@ class TableViewCell: UITableViewCell {
 
         contentView.addSubview(backView)
         backView.addSubview(homeApplianceName)
-        backView.addSubview(step)
         backView.addSubview(quantityView)
+        backView.addSubview(stepView)
+        stepView.addSubview(step)
         
         NSLayoutConstraint.activate([
             
@@ -81,19 +90,25 @@ class TableViewCell: UITableViewCell {
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             homeApplianceName.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 22),
-//            homeApplianceName.widthAnchor.constraint(equalToConstant: 210),
-//            homeApplianceName.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -30),
             homeApplianceName.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            homeApplianceName.heightAnchor.constraint(equalToConstant: 50),
+            homeApplianceName.widthAnchor.constraint(equalToConstant: 170),
             
-            step.leadingAnchor.constraint(equalTo: homeApplianceName.trailingAnchor),
-//            step.trailingAnchor.constraint(equalTo: quantityView.leadingAnchor),
-//            step.widthAnchor.constraint(equalToConstant: 60),
-//            step.heightAnchor.constraint(equalToConstant: 20),
-            step.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            quantityView.leadingAnchor.constraint(equalTo: homeApplianceName.trailingAnchor, constant: 10),
+//            quantityView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
+            quantityView.widthAnchor.constraint(equalToConstant: 25),
+            quantityView.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
             
-            quantityView.leadingAnchor.constraint(equalTo: step.trailingAnchor),
-            quantityView.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
-            quantityView.centerYAnchor.constraint(equalTo: backView.centerYAnchor)
+            stepView.leadingAnchor.constraint(equalTo: quantityView.trailingAnchor, constant: 5),
+            stepView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
+            stepView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -10),
+            stepView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 10),
+//            stepView.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            
+            step.leadingAnchor.constraint(equalTo: stepView.leadingAnchor),
+            step.trailingAnchor.constraint(equalTo: stepView.trailingAnchor),
+            step.bottomAnchor.constraint(equalTo: stepView.bottomAnchor),
+            step.topAnchor.constraint(equalTo: stepView.topAnchor),
         ])
     }
 }

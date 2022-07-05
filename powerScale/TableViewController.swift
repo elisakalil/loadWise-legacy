@@ -17,7 +17,7 @@ class TableViewController: UIViewController {
     private lazy var optionsTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.rowHeight = 70
+        table.rowHeight = 90
         table.separatorStyle = .none
         table.backgroundColor = .white
         table.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
