@@ -37,8 +37,7 @@ class TableViewCell: UITableViewCell {
     }()
     
     private lazy var step: UIStepper = {
-        let step = UIStepper(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        step.center = contentView.center
+        let step = UIStepper()
         step.minimumValue = 0
         step.maximumValue = 10
         step.stepValue = 1
@@ -90,25 +89,25 @@ class TableViewCell: UITableViewCell {
             backView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             homeApplianceName.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 22),
-            homeApplianceName.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
-            homeApplianceName.heightAnchor.constraint(equalToConstant: 50),
-            homeApplianceName.widthAnchor.constraint(equalToConstant: 170),
+            homeApplianceName.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -10),
+            homeApplianceName.topAnchor.constraint(equalTo: backView.topAnchor, constant: 10),
+
+            homeApplianceName.widthAnchor.constraint(equalToConstant: 190),
             
             quantityView.leadingAnchor.constraint(equalTo: homeApplianceName.trailingAnchor, constant: 10),
-//            quantityView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
             quantityView.widthAnchor.constraint(equalToConstant: 25),
-            quantityView.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            quantityView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -10),
+            quantityView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 10),
             
             stepView.leadingAnchor.constraint(equalTo: quantityView.trailingAnchor, constant: 5),
             stepView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
-            stepView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -10),
-            stepView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 10),
-//            stepView.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            stepView.bottomAnchor.constraint(equalTo: backView.bottomAnchor, constant: -20),
+            stepView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 22),
             
             step.leadingAnchor.constraint(equalTo: stepView.leadingAnchor),
             step.trailingAnchor.constraint(equalTo: stepView.trailingAnchor),
-            step.bottomAnchor.constraint(equalTo: stepView.bottomAnchor),
-            step.topAnchor.constraint(equalTo: stepView.topAnchor),
+            step.centerYAnchor.constraint(equalTo: stepView.centerYAnchor),
+            step.centerXAnchor.constraint(equalTo: stepView.centerXAnchor),
         ])
     }
 }
