@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SelectInformationViewController: UIViewController {
+class ModalViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let text = UILabel()

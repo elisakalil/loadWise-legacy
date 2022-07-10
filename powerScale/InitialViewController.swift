@@ -9,7 +9,6 @@ import UIKit
 
 class InitialViewController: UIViewController {
     
-    
     private lazy var residentialButton: UIButton = {
         let button = UIButton()
         button.isSelected = false
@@ -59,19 +58,41 @@ class InitialViewController: UIViewController {
         return image
     }()
     
+    var pdf: PDFBuilderProtocol
+
+    init(pdf: PDFBuilderProtocol) {
+        self.pdf = pdf
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildHierarchyandLayout()
+        setupLayout()
     }
     
     @objc private func pushFoward(button: UIButton) {
         button.isSelected = true
-        button.setTitleColor(.brownIFSC, for: .selected) 
         self.navigationController?.pushViewController(TableViewController(), animated: true)
         print("clique")
+        sendResidentialTYpe(buttonType: button)
     }
     
-    private func buildHierarchyandLayout() {
+    func sendResidentialTYpe(buttonType: UIButton) {
+        if buttonType == residentialButton {
+            pdf.residentialType = "Residencial"
+            print(pdf.residentialType)
+        } else {
+            pdf.residentialType = "Empresarial"
+            print(pdf.residentialType)
+
+        }
+    }
+    
+    private func setupLayout() {
         view.backgroundColor = UIColor(red: 238/255, green: 233/255, blue: 226/255, alpha: 1)
         view.addSubview(stack)
         view.addSubview(logo)

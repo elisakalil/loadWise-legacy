@@ -90,7 +90,7 @@ class FinalViewController: UIViewController {
         if button == okButton {
             self.navigationController?.pushViewController(TableViewController(), animated: true)
         } else {
-            self.navigationController?.pushViewController(PDFViewController(), animated: true)
+            self.navigationController?.pushViewController(PDFBuilderViewController(), animated: true)
         }
         print("clique")
     }

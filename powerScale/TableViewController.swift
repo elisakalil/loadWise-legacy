@@ -47,7 +47,7 @@ class TableViewController: UIViewController {
     }
     
     func presentModal() {
-        let presentModal = SelectInformationViewController()
+        let presentModal = ModalViewController()
         if let alertController = presentModal.presentationController as? UISheetPresentationController {
             alertController.detents = [.medium()]
         }
