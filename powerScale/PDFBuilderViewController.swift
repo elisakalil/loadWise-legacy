@@ -108,7 +108,7 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
     private lazy var infoStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.backgroundColor = .red
+        stack.backgroundColor = .white
         stack.axis = .vertical
         stack.spacing = 20
         return stack
@@ -192,3 +192,6 @@ extension Date {
     }
 }
 
+extension PDFBuilderProtocol {
+    
+}
