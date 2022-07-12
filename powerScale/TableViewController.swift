@@ -11,9 +11,8 @@ import UIKit
 class TableViewController: UIViewController {
     
     private var cellIdentifier = "defaultCell"
-    
-    var appliances: [homeApplianceModel] = homeAppliances
-    
+    private let appliances: [HomeApplianceModel]
+        
     private lazy var optionsTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +45,15 @@ class TableViewController: UIViewController {
         presentModal()
     }
     
+    init(appliances: [HomeApplianceModel]) {
+        self.appliances = appliances
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func presentModal() {
         let presentModal = ModalViewController()
         if let alertController = presentModal.presentationController as? UISheetPresentationController {
@@ -57,8 +65,7 @@ class TableViewController: UIViewController {
     @objc private func pushFoward(button: UIButton) {
         button.isSelected = true
         button.setTitleColor(.black, for: .selected)
-        self.navigationController?.pushViewController(FinalViewController(), animated: true)
-        print("clique")
+        self.navigationController?.pushViewController(FinalViewController(appliances: appliances), animated: true)
     }
     
     func buildHierarchyandLayout() {
@@ -93,7 +100,7 @@ extension TableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? TableViewCell
-        cell?.homeApplianceName.text = appliances[indexPath.row].appliance
+        cell?.appliance = appliances[indexPath.row]
         return cell ?? UITableViewCell()
     }
 }

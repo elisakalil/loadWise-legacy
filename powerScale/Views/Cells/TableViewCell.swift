@@ -11,6 +11,12 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+    
+    var appliance: HomeApplianceModel? {
+        didSet {
+            homeApplianceName.text = appliance?.name
+        }
+    }
         
     lazy var backView: UIView = {
         let view = UIView()
@@ -60,6 +66,7 @@ class TableViewCell: UITableViewCell {
     @objc func stepValue(sender: UIStepper) {
         print(sender.value)
         quantityView.text = String(Int(sender.value))
+        appliance?.quantity = Int(sender.value)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

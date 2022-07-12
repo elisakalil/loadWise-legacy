@@ -10,6 +10,8 @@ import UIKit
 
 class FinalViewController: UIViewController {
     
+    private let appliances: [HomeApplianceModel]
+    
     private lazy var kw: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +79,15 @@ class FinalViewController: UIViewController {
         return stack
     }()
     
+    init(appliances: [HomeApplianceModel]) {
+        self.appliances = appliances
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buildHierarchyandLayout()
@@ -88,11 +99,10 @@ class FinalViewController: UIViewController {
         button.isSelected = true
         button.setTitleColor(.black, for: .selected)
         if button == okButton {
-            self.navigationController?.pushViewController(TableViewController(), animated: true)
+            self.navigationController?.popViewController(animated: true)
         } else {
-            self.navigationController?.pushViewController(PDFBuilderViewController(), animated: true)
+            self.navigationController?.pushViewController(PDFBuilderViewController(appliances: appliances), animated: true)
         }
-        print("clique")
     }
     
     private func setupNavigation() {

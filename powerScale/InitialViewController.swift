@@ -9,6 +9,8 @@ import UIKit
 
 class InitialViewController: UIViewController {
     
+    private let appliances = AppliancesStore.appliances
+    
     private lazy var residentialButton: UIButton = {
         let button = UIButton()
         button.isSelected = false
@@ -58,17 +60,6 @@ class InitialViewController: UIViewController {
         return image
     }()
     
-    var pdf: PDFBuilderProtocol
-
-    init(pdf: PDFBuilderProtocol) {
-        self.pdf = pdf
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -76,12 +67,13 @@ class InitialViewController: UIViewController {
     
     @objc private func pushFoward(button: UIButton) {
         button.isSelected = true
-        self.navigationController?.pushViewController(TableViewController(), animated: true)
-        print("clique")
+        self.navigationController?.pushViewController(TableViewController(appliances: appliances), animated: true)
         sendResidentialTYpe(buttonType: button)
     }
     
     func sendResidentialTYpe(buttonType: UIButton) {
+        let pdf = PDFBuilderViewController(appliances: appliances)
+        
         if buttonType == residentialButton {
             pdf.residentialType = "Residencial"
             print(pdf.residentialType)

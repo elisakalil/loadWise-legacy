@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: InitialViewController(pdf: PDFBuilderViewController()))
+        window.rootViewController = UINavigationController(rootViewController: InitialViewController())
         window.makeKeyAndVisible()
         self.window = window
     }
