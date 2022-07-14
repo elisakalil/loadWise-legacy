@@ -10,6 +10,7 @@ import UIKit
 class InitialViewController: UIViewController {
     
     private let appliances = AppliancesStore.appliances
+    private var residentialType: String = ""
     
     private lazy var residentialButton: UIButton = {
         let button = UIButton()
@@ -67,20 +68,16 @@ class InitialViewController: UIViewController {
     
     @objc private func pushFoward(button: UIButton) {
         button.isSelected = true
-        self.navigationController?.pushViewController(TableViewController(appliances: appliances), animated: true)
+        self.navigationController?.pushViewController(TableViewController(appliances: appliances, residentialType: residentialType, nibName: nil, bundle: nil), animated: true)
         sendResidentialTYpe(buttonType: button)
     }
     
     func sendResidentialTYpe(buttonType: UIButton) {
-        let pdf = PDFBuilderViewController(appliances: appliances)
         
         if buttonType == residentialButton {
-            pdf.residentialType = "Residencial"
-            print(pdf.residentialType)
+            residentialType = "Residencial"
         } else {
-            pdf.residentialType = "Empresarial"
-            print(pdf.residentialType)
-
+            residentialType = "Empresarial"
         }
     }
     

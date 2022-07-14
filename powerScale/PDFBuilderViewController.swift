@@ -8,14 +8,12 @@
 import Foundation
 import UIKit
 
-protocol PDFBuilderProtocol {
-    var residentialType: String? { get set }
-}
-
-class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
+class PDFBuilderViewController: UIViewController {
     
+    private let disjuntor: String
+    private let conectionType: String
+    private let residentialType: String
     private let appliances: [HomeApplianceModel]
-    var residentialType: String?
     lazy var date = Date()
     lazy var format = date.getFormattedDate(format: "dd/MM/yyyy")
     
@@ -52,9 +50,20 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
         return title
     }()
     
+    private lazy var cType: UILabel = {
+        let title = UILabel()
+        title.text = "Ligação: \(conectionType)"
+        title.font = .systemFont(ofSize: 16)
+        title.numberOfLines = 0
+        title.textAlignment = .left
+        title.textColor = .black
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
     private lazy var disjuntorLabel: UILabel = {
         let title = UILabel()
-        title.text = "Disjuntor(Ampère): "
+        title.text = "Disjuntor: \(disjuntor)"
         title.font = .systemFont(ofSize: 16)
         title.numberOfLines = 0
         title.textAlignment = .left
@@ -74,6 +83,17 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
         return title
     }()
     
+    private lazy var appliancesTitleLabel: UILabel = {
+        let title = UILabel()
+        title.text = "Quantidade  |  Potência total  |  Aparelho"
+        title.font = .boldSystemFont(ofSize: 16)
+        title.numberOfLines = 0
+        title.textAlignment = .left
+        title.textColor = .black
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
     lazy var majorView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -84,28 +104,29 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
         return view
     }()
     
-    private lazy var infoStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.backgroundColor = .white
-        stack.axis = .vertical
-        stack.spacing = 20
-        return stack
-    }()
-    
     private lazy var appliancesStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
+        stack.alignment = .leading
+        stack.distribution = .fill
         stack.backgroundColor = .white
         stack.spacing = 20
         return stack
     }()
     
-    init(appliances: [HomeApplianceModel], residentialType: String? = nil) {
+    init(appliances: [HomeApplianceModel],
+         residentialType: String,
+         disjuntor: String,
+         conectionType: String,
+         nibName: String?,
+         bundle: Bundle?)
+    {
         self.appliances = appliances
         self.residentialType = residentialType
-        super.init()
+        self.disjuntor = disjuntor
+        self.conectionType = conectionType
+        super.init(nibName: nibName, bundle: bundle)
     }
     
     required init?(coder: NSCoder) {
@@ -116,34 +137,30 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup()
+        buildSelectedAppliancesLabels()
     }
     
     func setup() {
         view.addSubview(titleLabel)
-        view.addSubview(infoStack)
-        
-        infoStack.addSubview(majorView)
-        infoStack.addSubview(appliancesStack)
+        view.addSubview(majorView)
+        view.addSubview(appliancesStack)
         
         majorView.addSubview(dateLabel)
         majorView.addSubview(ucLabel)
         majorView.addSubview(disjuntorLabel)
         majorView.addSubview(residentialTypeLabel)
         
+        appliancesStack.addArrangedSubview(appliancesTitleLabel)
+                
         NSLayoutConstraint.activate([
             
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
-            infoStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            infoStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            infoStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            infoStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
             
-            majorView.topAnchor.constraint(equalTo: infoStack.topAnchor),
-            majorView.leadingAnchor.constraint(equalTo: infoStack.leadingAnchor),
-            majorView.trailingAnchor.constraint(equalTo: infoStack.trailingAnchor),
+            majorView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            majorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            majorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
             dateLabel.topAnchor.constraint(equalTo: majorView.topAnchor, constant: 16),
             dateLabel.trailingAnchor.constraint(equalTo: majorView.trailingAnchor, constant: -16),
@@ -163,9 +180,8 @@ class PDFBuilderViewController: UIViewController, PDFBuilderProtocol {
             residentialTypeLabel.bottomAnchor.constraint(equalTo: majorView.bottomAnchor, constant: -16),
             
             appliancesStack.topAnchor.constraint(equalTo: majorView.bottomAnchor, constant: 34),
-            appliancesStack.leadingAnchor.constraint(equalTo: infoStack.leadingAnchor),
-            appliancesStack.trailingAnchor.constraint(equalTo: infoStack.trailingAnchor),
-            appliancesStack.bottomAnchor.constraint(equalTo: infoStack.bottomAnchor),
+            appliancesStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            appliancesStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }
@@ -183,16 +199,20 @@ extension PDFBuilderViewController {
     func buildSelectedAppliancesLabels() {
         for item in appliances {
             
-            guard item.quantity > 0 else { return }
-            
-            let label = UILabel()
-            label.font = .systemFont(ofSize: 16)
-            label.numberOfLines = 0
-            label.textAlignment = .left
-            label.textColor = .black
-            
-            label.text = "\(item.quantity)  \(item.name)  \(item.power)"
-            appliancesStack.addSubview(label)
+            if item.quantity > 0 {
+                
+                let power = (item.quantity) * (item.power)
+                
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.font = .systemFont(ofSize: 16)
+                label.numberOfLines = 0
+                label.textAlignment = .left
+                label.textColor = .black
+                
+                label.text = "\(item.quantity)  \(power)W  \(item.name)"
+                appliancesStack.addArrangedSubview(label)
+            }
         }
     }
 }

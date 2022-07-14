@@ -10,8 +10,11 @@ import UIKit
 
 class TableViewController: UIViewController {
     
-    private var cellIdentifier = "defaultCell"
+    private let residentialType: String
     private let appliances: [HomeApplianceModel]
+    private var totalSelectedPower: Int = 0
+    private var cellIdentifier = "defaultCell"
+
         
     private lazy var optionsTableView: UITableView = {
         let table = UITableView()
@@ -45,9 +48,14 @@ class TableViewController: UIViewController {
         presentModal()
     }
     
-    init(appliances: [HomeApplianceModel]) {
+    override func viewDidAppear(_ animated: Bool) {
+        totalSelectedPower = 0
+    }
+    
+    init(appliances: [HomeApplianceModel], residentialType: String, nibName: String?, bundle: Bundle?) {
         self.appliances = appliances
-        super.init()
+        self.residentialType = residentialType
+        super.init(nibName: nibName, bundle: bundle)
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +73,8 @@ class TableViewController: UIViewController {
     @objc private func pushFoward(button: UIButton) {
         button.isSelected = true
         button.setTitleColor(.black, for: .selected)
-        self.navigationController?.pushViewController(FinalViewController(appliances: appliances), animated: true)
+        countTotalPower()
+        self.navigationController?.pushViewController(FinalViewController(appliances: appliances, totalSelectedPower: totalSelectedPower, residentialType: residentialType, nibName: nil, bundle: nil), animated: true)
     }
     
     func buildHierarchyandLayout() {
@@ -87,6 +96,21 @@ class TableViewController: UIViewController {
             sendButton.heightAnchor.constraint(equalToConstant: 54)
         ])
     }
+    
+        func countTotalPower() {
+            var totalKW = 0
+            var totalPower = 0
+            
+            for item in appliances {
+                
+                if item.quantity > 0  && totalSelectedPower == 0 {
+                    totalKW = (item.quantity) * (item.power)
+                    totalPower += totalKW
+                }
+            }
+            totalSelectedPower += totalPower
+        }
+    
     
     private func setupNavigation() {
         self.navigationController?.navigationBar.isTranslucent = true

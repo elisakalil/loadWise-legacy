@@ -10,12 +10,17 @@ import UIKit
 
 class FinalViewController: UIViewController {
     
+    private var totalSelectedPower: Int
+    private var disjuntor: String = "40 Ampères"
+    private var conectionType: String = "Monofásica"
+    private let residentialType: String
     private let appliances: [HomeApplianceModel]
+    
     
     private lazy var kw: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "0 kW"
+        text.text = "\(totalSelectedPower/1000) kW"
         text.font = UIFont.boldSystemFont(ofSize: 40.0)
         text.numberOfLines = 0
         text.textAlignment = .center
@@ -42,6 +47,7 @@ class FinalViewController: UIViewController {
         text.numberOfLines = 0
         text.textAlignment = .center
         text.textColor = .brownIFSC
+        text.isHidden = true
         return text
     }()
     
@@ -79,9 +85,16 @@ class FinalViewController: UIViewController {
         return stack
     }()
     
-    init(appliances: [HomeApplianceModel]) {
+    init(appliances: [HomeApplianceModel],
+         totalSelectedPower: Int,
+         residentialType: String,
+         nibName: String?,
+         bundle: Bundle?)
+    {
         self.appliances = appliances
-        super.init()
+        self.totalSelectedPower = totalSelectedPower
+        self.residentialType = residentialType
+        super.init(nibName: nibName, bundle: bundle)
     }
     
     required init?(coder: NSCoder) {
@@ -93,6 +106,7 @@ class FinalViewController: UIViewController {
         buildHierarchyandLayout()
         setupConstraints()
         setupNavigation()
+        setup()
     }
     
     @objc private func pushFoward(button: UIButton) {
@@ -101,7 +115,13 @@ class FinalViewController: UIViewController {
         if button == okButton {
             self.navigationController?.popViewController(animated: true)
         } else {
-            self.navigationController?.pushViewController(PDFBuilderViewController(appliances: appliances), animated: true)
+            self.navigationController?.pushViewController(PDFBuilderViewController(appliances: appliances,
+                                                                                   residentialType: residentialType,
+                                                                                   disjuntor: disjuntor,
+                                                                                   conectionType: "Monofásica",
+                                                                                   nibName: nil,
+                                                                                   bundle: nil),
+                                                                                   animated: true)
         }
     }
     
@@ -142,5 +162,93 @@ class FinalViewController: UIViewController {
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             ])
+    }
+    
+    func setup() {
+        
+        if  totalSelectedPower > 0 && totalSelectedPower < 8000  {
+            let missingPower = 12000 - totalSelectedPower
+            information.text = "Faltam \(missingPower/1000) kW para alcançar o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "40 Ampères"
+            conectionType = "Monofásica"
+            
+        } else if totalSelectedPower > 8000 && totalSelectedPower < 12000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.textColor = .greenIFSC
+            information.isHidden = false
+            
+            disjuntor = "50 Ampères"
+            conectionType = "Monofásica"
+            
+        } else if totalSelectedPower > 12000 && totalSelectedPower < 13000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "63 Ampères"
+            conectionType = "Monofásica"
+            
+        } else if totalSelectedPower > 13000 && totalSelectedPower < 15000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "70 Ampères"
+            conectionType = "Monofásica"
+            
+            
+        ///MARK: Trifásico
+            
+        } else if totalSelectedPower > 25000 && totalSelectedPower < 30000 {
+            let missingPower = 38000 - totalSelectedPower
+            information.text = "Faltam \(missingPower/1000) kW para alcançar o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "40 Ampères"
+            conectionType = "Trifásica"
+        } else if totalSelectedPower > 30000 && totalSelectedPower < 35000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "50 Ampères"
+            conectionType = "Trifásica"
+            
+        } else if totalSelectedPower > 35000 && totalSelectedPower < 45000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "63 Ampères"
+            conectionType = "Trifásica"
+            
+        } else if totalSelectedPower > 45000 && totalSelectedPower < 50000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "70 Ampères"
+            conectionType = "Trifásica"
+            
+        } else if totalSelectedPower > 50000 && totalSelectedPower < 60000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "90 Ampères"
+            conectionType = "Trifásica"
+            //ADD MODAL
+            
+        } else if totalSelectedPower > 60000 && totalSelectedPower < 70000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "100 Ampères"
+            conectionType = "Trifásica"
+            
+        } else if totalSelectedPower > 70000 && totalSelectedPower < 75000 {
+            information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
+            information.isHidden = false
+            
+            disjuntor = "125 Ampères"
+            conectionType = "Trifásica"
+    }
+    
     }
 }
