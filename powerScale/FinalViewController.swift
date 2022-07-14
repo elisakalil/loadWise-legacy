@@ -166,6 +166,9 @@ class FinalViewController: UIViewController {
     
     func setup() {
         
+        let alert = UIAlertController(title: "Atenção", message:"Ligação trifásica acima de 65kW deverá acompanhar documento de responsabilidade técnica por profissional habilitado", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        
         if  totalSelectedPower > 0 && totalSelectedPower < 8000  {
             let missingPower = 12000 - totalSelectedPower
             information.text = "Faltam \(missingPower/1000) kW para alcançar o valor máximo de proteção junto à CELESC"
@@ -197,7 +200,7 @@ class FinalViewController: UIViewController {
             conectionType = "Monofásica"
             
             
-        ///MARK: Trifásico
+            ///MARK: Trifásico
             
         } else if totalSelectedPower > 25000 && totalSelectedPower < 30000 {
             let missingPower = 38000 - totalSelectedPower
@@ -233,7 +236,6 @@ class FinalViewController: UIViewController {
             
             disjuntor = "90 Ampères"
             conectionType = "Trifásica"
-            //ADD MODAL
             
         } else if totalSelectedPower > 60000 && totalSelectedPower < 70000 {
             information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
@@ -241,14 +243,26 @@ class FinalViewController: UIViewController {
             
             disjuntor = "100 Ampères"
             conectionType = "Trifásica"
+            self.present(alert, animated: true, completion: nil)
+            presentAlert()
             
-        } else if totalSelectedPower > 70000 && totalSelectedPower < 75000 {
+        } else if totalSelectedPower > 70000 {
             information.text = "Você atingiu o valor máximo de proteção junto à CELESC"
             information.isHidden = false
             
             disjuntor = "125 Ampères"
             conectionType = "Trifásica"
+            self.present(alert, animated: true, completion: nil)
+            presentAlert()
+        }
+        
     }
     
+    func presentAlert() {
+        let presentAlert = AlertViewController()
+        if let alertController = presentAlert.presentationController as? UISheetPresentationController {
+            alertController.detents = [.medium()]
+        }
+        self.present(presentAlert, animated: true)
     }
 }
