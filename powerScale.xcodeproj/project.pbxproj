@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		691AA53A2881FF41000FA470 /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691AA5392881FF41000FA470 /* PDFCreator.swift */; };
+		691AA53C2882029A000FA470 /* PDFBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691AA53B2882029A000FA470 /* PDFBuilderViewController.swift */; };
 		697730DE2858E8FB005943C4 /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697730DD2858E8FB005943C4 /* FinalViewController.swift */; };
-		697730E128591983005943C4 /* PDFBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697730E028591983005943C4 /* PDFBuilderViewController.swift */; };
+		697730E128591983005943C4 /* PDFBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697730E028591983005943C4 /* PDFBuilderView.swift */; };
 		697730E5285934A0005943C4 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697730E4285934A0005943C4 /* ModalViewController.swift */; };
 		697E502E2824532100F3D37D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E502D2824532100F3D37D /* RadioButton.swift */; };
 		697E5031282461E900F3D37D /* Colors&Tons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E5030282461E900F3D37D /* Colors&Tons.swift */; };
@@ -25,8 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		691AA5392881FF41000FA470 /* PDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
+		691AA53B2882029A000FA470 /* PDFBuilderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFBuilderViewController.swift; sourceTree = "<group>"; };
 		697730DD2858E8FB005943C4 /* FinalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
-		697730E028591983005943C4 /* PDFBuilderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFBuilderViewController.swift; sourceTree = "<group>"; };
+		697730E028591983005943C4 /* PDFBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFBuilderView.swift; sourceTree = "<group>"; };
 		697730E4285934A0005943C4 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		697E502D2824532100F3D37D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		697E5030282461E900F3D37D /* Colors&Tons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors&Tons.swift"; sourceTree = "<group>"; };
@@ -98,7 +102,9 @@
 				6987254B2820A9AA009A0C5A /* InitialViewController.swift */,
 				6987255B2822167C009A0C5A /* TableViewController.swift */,
 				697730DD2858E8FB005943C4 /* FinalViewController.swift */,
-				697730E028591983005943C4 /* PDFBuilderViewController.swift */,
+				691AA53B2882029A000FA470 /* PDFBuilderViewController.swift */,
+				697730E028591983005943C4 /* PDFBuilderView.swift */,
+				691AA5392881FF41000FA470 /* PDFCreator.swift */,
 				698725522820A9AF009A0C5A /* LaunchScreen.storyboard */,
 				698725552820A9AF009A0C5A /* Info.plist */,
 			);
@@ -213,13 +219,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				697E5031282461E900F3D37D /* Colors&Tons.swift in Sources */,
+				691AA53C2882029A000FA470 /* PDFBuilderViewController.swift in Sources */,
 				697730E5285934A0005943C4 /* ModalViewController.swift in Sources */,
 				697730DE2858E8FB005943C4 /* FinalViewController.swift in Sources */,
+				691AA53A2881FF41000FA470 /* PDFCreator.swift in Sources */,
 				6987255F28221D85009A0C5A /* TableViewCell.swift in Sources */,
 				6987254C2820A9AA009A0C5A /* InitialViewController.swift in Sources */,
 				69C28AEA287DC52600C1DF3C /* AppliancesStore.swift in Sources */,
 				698725482820A9AA009A0C5A /* AppDelegate.swift in Sources */,
-				697730E128591983005943C4 /* PDFBuilderViewController.swift in Sources */,
+				697730E128591983005943C4 /* PDFBuilderView.swift in Sources */,
 				697E502E2824532100F3D37D /* RadioButton.swift in Sources */,
 				6987254A2820A9AA009A0C5A /* SceneDelegate.swift in Sources */,
 				69FF215F28510C8E006A46B3 /* HomeAppliancesModel.swift in Sources */,

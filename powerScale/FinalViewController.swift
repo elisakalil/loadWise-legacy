@@ -115,13 +115,7 @@ class FinalViewController: UIViewController {
         if button == okButton {
             self.navigationController?.popViewController(animated: true)
         } else {
-            self.navigationController?.pushViewController(PDFBuilderViewController(appliances: appliances,
-                                                                                   residentialType: residentialType,
-                                                                                   disjuntor: disjuntor,
-                                                                                   conectionType: "Monofásica",
-                                                                                   nibName: nil,
-                                                                                   bundle: nil),
-                                                                                   animated: true)
+            self.navigationController?.pushViewController(PDFBuilderViewController(appliances: appliances, residentialType: residentialType, disjuntor: disjuntor, conectionType: "", nibName: nil, bundle: nil), animated: true)
         }
     }
     
