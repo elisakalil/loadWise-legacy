@@ -23,7 +23,7 @@ class AppliancesStore {
         HomeApplianceModel(name: "Forno de Micro-ondas", power: 1175),
         HomeApplianceModel(name: "Freezer (congelador) vertical pequeno", power: 300),
         HomeApplianceModel(name: "Geladeira residencial", power: 325),
-        HomeApplianceModel(name: "Grelha (Grill)", power: 1200),
+        HomeApplianceModel(name: "Grelha (Gill)", power: 1200),
         HomeApplianceModel(name: "Impressora a jato de tinta", power: 90),
         HomeApplianceModel(name: "Impressora a laser média", power: 700),
         HomeApplianceModel(name: "Lâmpada Fluorescente compacta", power: 25),

@@ -38,17 +38,6 @@ class PDFBuilderView: UIView {
         return title
     }()
     
-    private lazy var ucLabel: UILabel = {
-        let title = UILabel()
-        title.text = "Unidade Consumidora: "
-        title.font = .systemFont(ofSize: 16)
-        title.numberOfLines = 0
-        title.textAlignment = .left
-        title.textColor = .black
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
-    }()
-    
     private lazy var cType: UILabel = {
         let title = UILabel()
         title.text = "Ligação: \(conectionType)"
@@ -142,7 +131,6 @@ class PDFBuilderView: UIView {
         addSubview(appliancesStack)
         
         majorView.addSubview(dateLabel)
-        majorView.addSubview(ucLabel)
         majorView.addSubview(disjuntorLabel)
         majorView.addSubview(residentialTypeLabel)
         
@@ -162,11 +150,7 @@ class PDFBuilderView: UIView {
             dateLabel.trailingAnchor.constraint(equalTo: majorView.trailingAnchor, constant: -16),
             dateLabel.leadingAnchor.constraint(equalTo: majorView.leadingAnchor, constant: 16),
 
-            ucLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
-            ucLabel.trailingAnchor.constraint(equalTo: majorView.trailingAnchor, constant: -16),
-            ucLabel.leadingAnchor.constraint(equalTo: majorView.leadingAnchor, constant: 16),
-
-            disjuntorLabel.topAnchor.constraint(equalTo: ucLabel.bottomAnchor, constant: 10),
+            disjuntorLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
             disjuntorLabel.trailingAnchor.constraint(equalTo: majorView.trailingAnchor, constant: -16),
             disjuntorLabel.leadingAnchor.constraint(equalTo: majorView.leadingAnchor, constant: 16),
 
