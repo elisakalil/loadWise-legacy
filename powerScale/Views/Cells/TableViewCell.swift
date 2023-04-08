@@ -45,7 +45,7 @@ class TableViewCell: UITableViewCell {
     private lazy var step: UIStepper = {
         let step = UIStepper()
         step.minimumValue = 0
-        step.maximumValue = 10
+        step.maximumValue = 50
         step.stepValue = 1
         step.autorepeat = false
         step.tintColor = .green
